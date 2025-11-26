@@ -28,6 +28,17 @@
                         <TextBlock Text="{Binding Email}"/>
                         <TextBlock Text="{Binding Password}"/>
                         <TextBlock Text="{Binding CreatedAt, StringFormat={}{0:dd.MM.yyyy}}"/>
+                        <TextBlock>Паспорт</TextBlock>
+                        <TextBlock>
+                            <Run Text="Серия: "/>
+                            <Run Text="{Binding UserProfile.Series}"/>
+                            <Run Text="Номер: "/>
+                            <Run Text="{Binding UserProfile.Number}"/>
+                        </TextBlock>
+                        <TextBlock>
+                            <Run Text="Роль: "/>
+                            <Run Text="{Binding Role.Title}"/>
+                        </TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -37,9 +48,11 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Click="Add_Click" Content="Добавить"/>
             <Button Grid.Column="1" Click="Delete_Click" Content="Удалить"/>
+            <Button Grid.Column="2" Click="Roles_Click" Content="Роли"/>
         </Grid>
     </Grid>
 </Page>

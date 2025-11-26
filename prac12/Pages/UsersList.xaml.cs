@@ -60,5 +60,10 @@ namespace prac12.Pages
                 service.Remove(user);
             }
         }
+
+        private void Roles_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new RoleList());
+        }
     }
 }

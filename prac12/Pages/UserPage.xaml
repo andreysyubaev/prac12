@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:prac12.Pages"
       xmlns:validadors="clr-namespace:prac12.Validators"
+      xmlns:data="clr-namespace:prac12.Data"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="UserPage">
@@ -12,6 +13,8 @@
         <validadors:LoginValid x:Key="loginValid"/>
         <validadors:EmailValid x:Key="emailValid"/>
         <validadors:PasswordValid x:Key="passwordValid"/>
+
+        <data:RolesService x:Key="sService"/>
     </Page.Resources>
     <Grid>
         <StackPanel Margin="80,0" VerticalAlignment="Center">
@@ -92,6 +95,30 @@
             <StackPanel>
                 <TextBlock Text="Подтверждение пароля"/>
                 <TextBox x:Name="ConfirmPassword"/>
+            </StackPanel>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <Label>Серия паспорта</Label>
+                    <TextBox Text="{Binding UserProfile.Series}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <Label>Номер паспорта</Label>
+                    <TextBox Text="{Binding UserProfile.Number}"/>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel>
+                <Label>Роль</Label>
+                <ComboBox ItemsSource="{Binding Source={StaticResource sService}, Path=Roles}"
+                          DisplayMemberPath="Title"
+                          SelectedItem="{Binding Role}"/>
             </StackPanel>
 
             <Button Click="Save_Click" Content="Сохранить"/>

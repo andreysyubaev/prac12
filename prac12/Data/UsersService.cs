@@ -1,4 +1,5 @@
-﻿using prac12.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using prac12.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,7 +25,10 @@ namespace prac12.Data
                 Name = user.Name,
                 Email = user.Email,
                 Password = user.Password,
-                CreatedAt = user.CreatedAt
+                CreatedAt = user.CreatedAt,
+                UserProfile = user.UserProfile,
+                RoleId = user.RoleId,
+                Role = user.Role,
             };
             _db.Add<User>(_user);
             Commit();
@@ -33,8 +37,13 @@ namespace prac12.Data
         public int Commit() => _db.SaveChanges();
         public void GetAll()
         {
-            var users = _db.Users.ToList();
+            var users = _db.Users
+                .Include(s => s.UserProfile)
+                .Include(s => s.Role)
+                .ToList();
+
             Users.Clear();
+
             foreach (var user in users)
             {
                 Users.Add(user);

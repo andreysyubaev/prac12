@@ -33,6 +33,8 @@ namespace prac12.Pages
                 _user = _editUser;
                 isEdit = true;
             }
+            if (_user.UserProfile == null)
+                _user.UserProfile = new();
             DataContext = _user;
         }
 

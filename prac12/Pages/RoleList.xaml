@@ -1,0 +1,42 @@
+﻿<Page x:Class="prac12.Pages.RoleList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:prac12.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
+      Title="RoleList">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="0"
+                  ItemsSource="{Binding service.Roles}"
+                  MouseDoubleClick="Edit_MouseDoubleClick"
+                  SelectedItem="{Binding current}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <Run Text="Роль: "/>
+                        <Run Text="{Binding Title}"/>
+                    </TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Click="Back_Click" Content="Назад"/>
+            <Button Grid.Column="1" Click="Add_Click" Content="Добавить"/>
+            <Button Grid.Column="2" Click="Delete_Click" Content="Удалить"/>
+        </Grid>
+    </Grid>
+</Page>
