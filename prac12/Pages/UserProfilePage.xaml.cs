@@ -25,7 +25,6 @@ namespace prac12.Pages
         User _user = new();
         public UserProfilePage(User? user)
         {
-           
             InitializeComponent();
 
             _user = user;
