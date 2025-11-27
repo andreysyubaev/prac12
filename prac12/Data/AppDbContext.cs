@@ -25,7 +25,8 @@ namespace prac12.Data
             modelBuilder.Entity<User>()
                 .HasOne(s => s.UserProfile)
                 .WithOne(ps => ps.User)
-                .HasForeignKey<UserProfile>(ps => ps.UserId);
+                .HasForeignKey<UserProfile>(ps => ps.UserId)
+                .IsRequired(false);
 
             modelBuilder.Entity<Role>()
                 .HasMany(g => g.Users)

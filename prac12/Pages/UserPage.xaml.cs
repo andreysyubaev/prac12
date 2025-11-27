@@ -1,4 +1,5 @@
-﻿using prac12.Data;
+﻿using Microsoft.Win32;
+using prac12.Data;
 using prac12.Models;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,9 @@ namespace prac12.Pages
     public partial class UserPage : Page
     {
         private UsersService _service = new();
+        private RolesService _roleService = new();
         public User _user = new();
+        public Role _role;
         bool isEdit = false;
         public UserPage(User? _editUser = null)
         {
@@ -56,6 +59,11 @@ namespace prac12.Pages
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void Profile_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new UserProfilePage(_user));
         }
     }
 }

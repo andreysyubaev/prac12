@@ -16,7 +16,7 @@ namespace prac12.Models
             set => SetProperty(ref _id, value);
         }
 
-        private string _avatarUrl;
+        private string _avatarUrl = "C:\\TRPO_4_KURS\\prac12\\prac12\\prac12\\Photos\\avatar-default.png";
         public string AvatarUrl
         {
             get => _avatarUrl;

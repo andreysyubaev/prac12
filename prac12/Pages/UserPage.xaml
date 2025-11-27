@@ -13,11 +13,16 @@
         <validadors:LoginValid x:Key="loginValid"/>
         <validadors:EmailValid x:Key="emailValid"/>
         <validadors:PasswordValid x:Key="passwordValid"/>
+        <validadors:BirthdayValid x:Key="birthdayValid"/>
 
         <data:RolesService x:Key="sService"/>
     </Page.Resources>
     <Grid>
-        <StackPanel Margin="80,0" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="80,0" VerticalAlignment="Center">
             <Label Content="Добавление/изменение пользователя"/>
             <StackPanel>
                 <TextBlock Text="Логин"/>
@@ -71,6 +76,28 @@
             </StackPanel>
 
             <StackPanel>
+                <Label>Дата создания</Label>
+                <DatePicker x:Name="CreatedAt" Validation.ErrorTemplate="{x:Null}">
+                    <DatePicker.SelectedDate>
+                        <Binding Path="CreatedAt"
+                                 UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validadors:BirthdayValid/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </DatePicker.SelectedDate>
+                </DatePicker>
+                <ItemsControl ItemsSource="{Binding ElementName=CreatedAt,
+                    Path=(Validation.Errors)}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding ErrorContent}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+
+            <StackPanel>
                 <TextBlock Text="Пароль"/>
                 <TextBox x:Name="Password" Validation.ErrorTemplate="{x:Null}">
                     <TextBox.Text>
@@ -97,22 +124,7 @@
                 <TextBox x:Name="ConfirmPassword"/>
             </StackPanel>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <StackPanel Grid.Column="0">
-                    <Label>Серия паспорта</Label>
-                    <TextBox Text="{Binding UserProfile.Series}"/>
-                </StackPanel>
-
-                <StackPanel Grid.Column="1">
-                    <Label>Номер паспорта</Label>
-                    <TextBox Text="{Binding UserProfile.Number}"/>
-                </StackPanel>
-            </Grid>
+            <Button Click="Profile_Click" Content="Профиль"/>
 
             <StackPanel>
                 <Label>Роль</Label>
@@ -121,8 +133,17 @@
                           SelectedItem="{Binding Role}"/>
             </StackPanel>
 
-            <Button Click="Save_Click" Content="Сохранить"/>
-            <Button Click="Back_Click" Content="Назад"/>
+            
         </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Click="Back_Click" Content="Назад"/>
+            <Button Grid.Column="1" Click="Save_Click" Content="Сохранить"/>
+        </Grid>
+        
     </Grid>
 </Page>

@@ -10,6 +10,15 @@ namespace prac12.Models
 {
     public class User : ObservableObject
     {
+        public User()
+        {
+            if (RolesService.Roles.Any())
+            {
+                Role = RolesService.Roles.First();
+                RoleId = Role.Id;
+            }
+        }
+
         private int _id;
         public int Id 
         {
