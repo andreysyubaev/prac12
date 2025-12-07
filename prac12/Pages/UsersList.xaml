@@ -14,49 +14,81 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        
-        <ListView Grid.Row="0"
-                  ItemsSource="{Binding service.Users}"
-                  MouseDoubleClick="Edit_MouseDoubleClick"
-                  SelectedItem="{Binding user}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0">
-                            <TextBlock Text="{Binding Id}"/>
-                            <TextBlock Text="{Binding Login}"/>
-                            <TextBlock Text="{Binding Name}"/>
-                            <TextBlock Text="{Binding Email}"/>
-                            <TextBlock Text="{Binding Password}"/>
-                            <TextBlock Text="{Binding CreatedAt, StringFormat={}{0:dd.MM.yyyy}}"/>
-                            <TextBlock>
-                                <Run Text="Роль: "/>
-                                <Run Text="{Binding Role.Title}"/>
-                            </TextBlock>
-                        </StackPanel>
-                        <StackPanel Grid.Column="1">
-                            <TextBlock Text="{Binding UserProfile.Bio}"/>
-                            <TextBlock Text="{Binding UserProfile.Birthday, StringFormat={}{0:dd.MM.yyyy}}"/>
-                            <TextBlock Text="{Binding UserProfile.Phone}"/>
-                        </StackPanel>
-                        <Image Grid.Column="2"
-                               Width="120" Height="120" Margin="16"
-                               x:Name="AvatarImage"
-                               Source="{Binding UserProfile.AvatarUrl}"
-                               Stretch="UniformToFill"/>
-                    </Grid>
-                    
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0">
+                <ListView x:Name="UserListView"
+                          ItemsSource="{Binding service.Users}"
+                          MouseDoubleClick="Edit_MouseDoubleClick"
+                          SelectedItem="{Binding user}"> 
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="{Binding Id}"/>
+                                    <TextBlock Text="{Binding Login}"/>
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Email}"/>
+                                    <TextBlock Text="{Binding Password}"/>
+                                    <TextBlock Text="{Binding CreatedAt, StringFormat={}{0:dd.MM.yyyy}}"/>
+                                    <TextBlock>
+                                        <Run Text="Роль: "/>
+                                        <Run Text="{Binding Role.Title}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="{Binding UserProfile.Bio}"/>
+                                    <TextBlock Text="{Binding UserProfile.Birthday, StringFormat={}{0:dd.MM.yyyy}}"/>
+                                    <TextBlock Text="{Binding UserProfile.Phone}"/>
+                                </StackPanel>
+                                <Image Grid.Column="2"
+                                       Width="120" Height="120" Margin="16"
+                                       x:Name="AvatarImage"
+                                       Source="{Binding UserProfile.AvatarUrl}"
+                                       Stretch="UniformToFill"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Border>
+
+            <Border Grid.Column="1">
+                <ListView x:Name="UserInterestGroupList"
+                          ItemsSource="{Binding ElementName=UserListView, Path=SelectedItem.UserInterestGroups}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock>
+                                    <Run Text="Название: "/>
+                                    <Run Text="{Binding InterestGroup.Title}" FontWeight="SemiBold"/>
+                                    <Run Text=" | " FontWeight="Light"/>
+                                    <Run Text="Дата вступления: "/>
+                                    <Run Text="{Binding JoinedAt}"/>
+                                </TextBlock>
+                                <StackPanel>
+                                    <TextBlock Text="Модератор: "/>
+                                    <CheckBox IsChecked="{Binding IsModerator}" IsEnabled="False"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Border>
+        </Grid>
         
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -64,6 +96,8 @@
             <Button Grid.Column="0" Click="Add_Click" Content="Добавить"/>
             <Button Grid.Column="1" Click="Delete_Click" Content="Удалить"/>
             <Button Grid.Column="2" Click="Roles_Click" Content="Роли"/>
+            <Button Grid.Column="3" Click="Groups_Click" Content="Группы"/>
+            <Button Grid.Column="4" Click="Join_Click" Content="Вступить в группу"/>
         </Grid>
     </Grid>
 </Page>

@@ -30,7 +30,7 @@ namespace prac12.Models
             set => SetProperty(ref _phone, value);
         }
 
-        private DateTime _birthday;
+        private DateTime _birthday = DateTime.Now;
         public DateTime Birthday
         {
             get => _birthday;

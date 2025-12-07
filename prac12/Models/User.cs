@@ -1,6 +1,7 @@
 ﻿using prac12.Data;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -80,6 +81,13 @@ namespace prac12.Models
         {
             get => _role;
             set => SetProperty(ref _role, value);
+        }
+
+        private ObservableCollection<UserInterestGroup> _userInterestGroups;
+        public ObservableCollection<UserInterestGroup> UserInterestGroups
+        {
+            get => _userInterestGroups;
+            set => SetProperty(ref _userInterestGroups, value);
         }
     }
 }

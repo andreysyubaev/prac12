@@ -24,9 +24,11 @@ namespace prac12.Pages
     {
         public UsersService service { get; set; } = new();
         public User? user { get; set; } = null;
+        public InterestGroup current { get; set; }
         public UsersList()
         {
             InitializeComponent();
+            DataContext = this;
         }
 
         private void Edit_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -64,6 +66,21 @@ namespace prac12.Pages
         private void Roles_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new RoleList());
+        }
+
+        private void Groups_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new InterestGroupPage());
+        }
+
+        private void Join_Click(object sender, RoutedEventArgs e)
+        {
+            if (user == null)
+            {
+                MessageBox.Show("Выберите элемент из списка!");
+                return;
+            }
+            NavigationService.Navigate(new RegInterestGroup(user));
         }
     }
 }

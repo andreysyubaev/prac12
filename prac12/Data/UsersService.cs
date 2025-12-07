@@ -40,6 +40,8 @@ namespace prac12.Data
             var users = _db.Users
                 .Include(s => s.UserProfile)
                 .Include(s => s.Role)
+                .Include(s => s.UserInterestGroups)
+                .ThenInclude(ug => ug.InterestGroup)
                 .ToList();
 
             Users.Clear();

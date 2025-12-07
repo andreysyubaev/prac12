@@ -18,13 +18,13 @@ using System.Windows.Shapes;
 namespace prac12.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для RoleList.xaml
+    /// Логика взаимодействия для InterestGroupPage.xaml
     /// </summary>
-    public partial class RoleList : Page
+    public partial class InterestGroupPage : Page
     {
-        public RolesService service { get; set; } = new();
-        public Role? current { get; set; } = null;
-        public RoleList()
+        public InterestGroupService service { get; set; } = new();
+        public InterestGroup? current { get; set; } = null;
+        public InterestGroupPage()
         {
             InitializeComponent();
         }
@@ -36,29 +36,29 @@ namespace prac12.Pages
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new RoleForm());
+            NavigationService.Navigate(new InterestGroupForm());
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             if (current != null)
                 if (MessageBox.Show(
-                    "Вы действительно хотите удалить роль?",
-                    "Удалить роль?",
+                    "Вы действительно хотите удалить группу?",
+                    "Удалить группу?",
                     MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     service.Remove(current);
-            else
-                MessageBox.Show(
-                    "Выберите роль для удаления",
-                    "Выберите роль",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                else
+                    MessageBox.Show(
+                        "Выберите группу для удаления",
+                        "Выберите группу",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
         }
 
         private void Edit_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (current != null)
-                NavigationService.Navigate(new RoleForm(current));
+                NavigationService.Navigate(new InterestGroupForm(current));
             else
                 MessageBox.Show("Выберите роль");
         }
